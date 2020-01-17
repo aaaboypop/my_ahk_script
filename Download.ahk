@@ -1,0 +1,1 @@
+﻿UrlDownloadToFile, https://raw.githubusercontent.com/aaaboypop/N4A-V2/master/N4A-V2.ahk, C:\Users\PONDX\123.ahk
