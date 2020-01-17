@@ -1,4 +1,4 @@
-﻿;************************************************
+;************************************************
 ; Test script for Gdip_ImageSearch()
 ; by MasterFocus
 ; 02/April/2013 00:30h BRT
@@ -8,60 +8,19 @@
 ;ListLines, Off
 SetBatchLines, -1
 Process, Priority,, High
-
-
 OnExit, EXIT_LABEL
 
 gdipToken := Gdip_Startup()
 
-   bmpHaystack := Gdip_BitmapFromScreen()
-   bmpNeedle := Gdip_CreateBitmapFromFile(hay_name)
-   Gdip_CreateBitmapFromFile(need_name)
-
-   a:=0
-   While(a<=5)
-   {
-      hay_name := a ".jpg"
-      need_name := a ".png"
-      bmpHaystack_%a% := Gdip_CreateBitmapFromFile(hay_name) ; Gdip_BitmapFromScreen()
-      bmpNeedle_%a% := Gdip_CreateBitmapFromFile(need_name)
-      a++
-   }
-
-	DllCall("QueryPerformanceFrequency", "Int64*", freq)
-	DllCall("QueryPerformanceCounter", "Int64*", CounterBefore)
-   
-
-   i:=0
-   found := ""
-   While(i<=5)
-   {
-      j:=0
-      While(j<=5)
-      {
-         bmpHaystack := bmpHaystack_%i%
-         bmpNeedle := bmpNeedle_%j%
-         RET := Gdip_ImageSearch(bmpHaystack,bmpNeedle,Out_position,0,0,0,0,0,0xFFFFFF,1,0)
-         if(RET)
-         {
-            found .= j " "
-         }
-         j++
-      }
-      DllCall("QueryPerformanceCounter", "Int64*", CounterAfter%i%)
-      i++
-   }
-   DllCall("QueryPerformanceCounter", "Int64*", CounterAfter)
-   Gdip_DisposeImage(bmpHaystack)
-   Gdip_DisposeImage(bmpNeedle)
-
-   pass1 := (CounterAfter1 - CounterBefore) / freq * 1000
-   pass2 := (CounterAfter2 - CounterAfter1) / freq * 1000
-   pass3 := (CounterAfter3 - CounterAfter2) / freq * 1000
-   pass4 := (CounterAfter4 - CounterAfter3) / freq * 1000
-   pass5 := (CounterAfter5 - CounterAfter4) / freq * 1000
-	End_b := (CounterAfter - CounterBefore) / freq * 1000
-	MsgBox, % "Returned: " RET "`nx,y : " Out_position "`n`nTime : " End_b "`n" pass1 "`n" pass2 "`n" pass3 "`n" pass4 "`n" pass5 "`n" found
+;bmpHaystack := Gdip_BitmapFromScreen()
+bmpHaystack := Gdip_CreateBitmapFromFile("image000001.jpg")
+bmpNeedle := Gdip_CreateBitmapFromFile("image000001.jpg")
+RET := Gdip_ImageSearch(bmpHaystack,bmpNeedle,LIST,0,0,0,0,0,0xFFFFFF,1,0)
+Gdip_DisposeImage(bmpHaystack)
+Gdip_DisposeImage(bmpNeedle)
+Gdip_Shutdown(gdipToken)
+MsgBox, % "Returned: " RET "`n`n" LIST
+	
 
 
 
